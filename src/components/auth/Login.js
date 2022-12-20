@@ -16,7 +16,7 @@ export const Login = () => {
         if (foundUsers.length === 1) {
           const user = foundUsers[0];
           localStorage.setItem(
-            "capstone_user",
+            "travel_user",
             JSON.stringify({
               id: user.id,
             })
@@ -33,7 +33,7 @@ export const Login = () => {
     <main className="container--login">
       <section>
         <form className="form--login" onSubmit={handleLogin}>
-          <h1>Project Name</h1>
+          <h1>TravelUp</h1>
           <h2>Please sign in</h2>
           <fieldset>
             <label htmlFor="inputEmail"> Email address </label>
@@ -48,12 +48,12 @@ export const Login = () => {
             />
           </fieldset>
           <fieldset>
-            <button type="submit">Sign in</button>
+            <button type="submit">TravelUp</button>
           </fieldset>
         </form>
       </section>
       <section className="link--register">
-        <Link to="/register">Not a member yet?</Link>
+        <Link to="/register">Not a member yet?  What are you waiting for?</Link>
       </section>
     </main>
   );
