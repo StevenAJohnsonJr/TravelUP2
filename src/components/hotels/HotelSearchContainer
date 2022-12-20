@@ -1,0 +1,14 @@
+//  import { useState } from "react";
+// import { HotelList } from "./HotelList";
+// import { SearchForm } from "./search/SearchForm;
+
+// export const HotelSearchContainer = () => {
+//     const [searchTerms, setSearchTerms] = useState("");
+//     console.log(searchTerms);
+//     return (
+//         <>
+//             <SearchForm setterFunction={setSearchTerms}/>
+//             <HotelList searchTermState={searchTerms} />
+//         </>
+//     );
+// };

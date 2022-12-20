@@ -1,0 +1,158 @@
+import { useEffect, useState } from "react";
+
+export const EditBooking = () => {
+    const [editBookings, updateBooking] = useState({
+        userId: 0,
+        hotelId: 0,
+        checkinDate: "",
+        checkoutDate: "",
+        numberOfTravelers: 0,
+    });
+    /* ------------------------------ */
+    const localTravelUser = localStorage.getItem("travel_user");
+    const capstoneTravelObject = JSON.parse(localTravelUser);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await fetch(
+    //             `http://localhost:8088/bookings?userId=${capstoneTravelObject.id} `
+    //         );
+    //         const data = await response.json();
+    //         //console.log(data);
+    //         updateeditBookings(data[0]);
+    //     };
+    //     fetchData();
+    // }, []);
+    /* -------------Edit----------------- */
+    /* async */
+    const edit = async (SendToAPI) => {
+        editBookings
+        const fetchOptions = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(SendToAPI),
+        };
+        const response = await fetch(
+            `http://localhost:8088/bookings/${capstoneTravelObject.id}`,
+            fetchOptions
+        );
+        const responseJson = await response.json();
+        return responseJson;
+    };
+    /* ------------------------------ */
+    const handleSaveButtonClick = (event) => {
+        event.preventDefault();
+        editProfile(editBookings);
+    };
+    /* ------------------------------ */
+
+    return (
+        <>
+
+            <div>
+
+                <form className="datePicker">
+                    <h2 className="date">Travel Where?  Travel When? Are You By Yourself Or With A Friend?  Information needed below please fill in:</h2>
+                    <select value={editBookings} onChange={(Event) => {
+                        updateBooking(Event.target.value)
+                    }}>
+                        <option value="Miami Beach, FL">Miami Beach, FL</option>
+                        <option value="Los Angeles, CA">Los Angeles, CA</option>
+                        <option value="West Hollywood, CA">West Hollywood, CA</option>
+                        <option value="Las Vegas, NV">Las Vegas, NV</option>
+                        <option value="New York, NY">New York, NY</option>
+                        <option value="Nashville, TN">Nashville, TN</option>
+                    </select>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="Date">Check-in Date:</label>
+                            <input
+                                required
+                                autoFocus
+                                type="date"
+                                className="form-control"
+                                value={editBookings.checkinDate}
+                                onChange={(evt) => {
+                                    // TODO: Update specialty property
+                                    const copy = { ...editBookings };
+                                    copy.checkinDate = evt.target.value;
+                                    updateBooking(copy);
+                                }}
+                            />
+                        </div>
+
+                    </fieldset>
+                    <fieldset>
+                        <div className="datePicker">
+                            <label htmlFor="date">Check-out Date:</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                value={editBookings.checkoutDate}
+                                onChange={(evt) => {
+                                    // TODO: Update rate property
+                                    const copy = { ...editBookings };
+                                    copy.checkoutDate = evt.target.value;
+                                    //copy.rate = parseFloat(evt.target.value,2);
+                                    updateBooking(copy);
+                                }}
+                            />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div className="Travelers">
+                            <label htmlFor="date">Number Of Travelers:</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                value={editBookings.numberOfTravelers}
+                                onChange={(evt) => {
+                                    // TODO: Update rate property
+                                    const copy = { ...editBookings };
+                                    copy.numberOfTravelers = evt.target.value;
+                                    updateBooking(copy);
+                                }}
+                            />
+                        </div>
+                    </fieldset>
+                    <button
+                        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)} className="btn btn-primary">Save destination </button>
+                </form>
+                <div><h2>List of Hotels</h2>
+                    <article className="Hotel">
+                        {HotelResults.map(Hotel => (
+                            <section className="Hotel" key={Hotel.id}>
+                                <header>{Hotel.name}</header>
+                                <div style={{ margin: '100px' }}>
+                                    <img src={Hotel.image} alt="Hotel Images" style={{ width: '400px', }} />
+                                </div>
+                                <header>{Hotel.image}</header>
+                                <header>{Hotel.description}</header>
+                                <header>{Hotel.location}</header>
+                                <header>{Hotel.price}</header>
+                                <header>{Hotel.id}</header>
+                                <header>{Hotel.hotelTypeId}</header>
+                                <header>{Hotel.isPetFriendly}</header>
+                                <button
+                                    onClick={(clickEvent) => {
+                                        updateBooking.hotelId(Hotel.id)
+
+                                        handleSaveButtonClick(clickEvent)
+                                    }
+                                    }
+                                    className="btn btn-primary">Save destination </button>
+
+                            </section>
+
+                        ))}
+                    </article></div>
+            </div>
+        </>
+    )
+};
+
+
+
+
